@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    
+        <script>
+          function toggleEditForm(taskId) {
+            const editForm = document.querySelector(`form[action="/tasks/${taskId}"]`);
+            if (editForm) {
+              editForm.style.display = editForm.style.display === "none" ? "block" : "none";
+            }
+          }
+        </script>
+    
+</head>
+
+<body>
+    <h1>Todo List</h1>
+    <% if (tasks.length===0) { %>
+        <p>No tasks found.</p>
+        <% } else { %>
+            <ul>
+                <% tasks.forEach(task=> { %>
+                    <li>
+                        <%= task.id %>
+                        <strong>
+                            <%= task.title %>
+                        </strong>
+                        <% if (task.completed) { %>
+                            <span style="color: green;">(Completed)</span>
+                            <% } else { %>
+                                <span style="color: red;">(Not Completed)</span>
+                                <% } %>
+                                <br />
+                                <%= task.description %>
+                                <form action="/tasks/<%= task.id %>" method="put" style="display: none;">
+                                    <label for="edit-description">Edit Description:</label><br>
+                                    <textarea id="edit-description" name="editDescription" rows="4" cols="50"><%= task.description %></textarea><br><br>
+                              
+                                    <label for="edit-completed">Completed:</label>
+                                    <input type="checkbox" id="edit-completed" name="editCompleted" <% if (task.completed) { %>checked<% } %>><br><br>
+                              
+                                    <input type="submit" value="Update">
+                                  </form>
+                                  <button onclick="toggleEditForm('<%= task.id %>')">Edit</button>
+                    </li>
+                    <br />
+                    <% }) %>
+                    
+            </ul>
+            <% } %>
+            <h1>Add a Task</h1>
+            <form action="/tasks" method="post">
+              <label for="title">Task Title:</label>
+              <input type="text" id="title" name="title" required><br><br>
+          
+              <label for="description">Task Description:</label><br>
+              <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+          
+              <input type="submit" value="Add Task">
+            </form>
+            
+</body>
+
+</html>

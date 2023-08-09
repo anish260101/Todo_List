@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Task</title>
+</head>
+<body>
+  <h1>Add a Task</h1>
+  <form action="/tasks/add" method="post">
+    <label for="title">Task Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="description">Task Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+    <input type="submit" value="Add Task">
+  </form>
+</body>
+</html>
